@@ -219,8 +219,8 @@ export default class TicTacToe extends cc.Component {
             else return 0;
         }
 
-        if (this.level == Level.Easy && depth > 3) return 0;
-        else if (this.level == Level.Medium && depth > 5) return 0; 
+        if (this.level == Level.Easy && depth > 3) return -10;
+        else if (this.level == Level.Medium && depth > 5) return -10; 
 
         if (isMaximizing) {
             let bestScore = -Infinity;
