@@ -213,45 +213,27 @@ export default class TicTacToe extends cc.Component {
     minimax (board: string[][], depth: number, isMaximizing: boolean) : number {
         let result = this.checkWinner();
         if (result !== null) {
-            cc.log("depth:" + depth);
             if (result == this.ai) return 10;
             else if (result == this.human) return -10;
             else return 0;
         }
 
-        if (this.level == Level.Easy && depth > 3) return -10;
-        else if (this.level == Level.Medium && depth > 5) return -10; 
+        if (this.level == Level.Easy && depth > 3) return 0;
+        else if (this.level == Level.Medium && depth > 5) return 0; 
 
-        if (isMaximizing) {
-            let bestScore = -Infinity;
-            for (let i = 0; i < 3; i++) {
-                for (let j = 0; j < 3; j++) {
-                    if (board[j][i] == "") {
-                        board[j][i] = this.ai;
-                        let score = this.minimax(board, depth + 1, false);
-                        board[j][i] = "";
-                        bestScore = Math.max(score, bestScore);
-                    }
+        let bestScore = isMaximizing ? -Infinity : Infinity;
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                if (board[j][i] == "") {
+                    board[j][i] = this.ai;
+                    let score = this.minimax(board, depth + 1, false);
+                    board[j][i] = "";
+                    bestScore = isMaximizing ? Math.max(score, bestScore) : Math.min(score, bestScore);
                 }
             }
-
-            return bestScore;
         }
-        else {
-            let bestScore = Infinity;
-            for (let i = 0; i < 3; i++) {
-                for (let j = 0; j < 3; j++) {
-                    if (board[j][i] == "") {
-                        board[j][i] = this.human;
-                        let score = this.minimax(board, depth + 1, true);
-                        board[j][i] = "";
-                        bestScore = Math.min(score, bestScore);
-                    }
-                }
-            }
 
-            return bestScore;
-        }
+        return bestScore;
     }
 
     // update (dt) {}
