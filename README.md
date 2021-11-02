@@ -1,2 +1,2 @@
 # TicTacToe
-A Simple Tic Tac Toe Game
+A simple Tic Tac Toe game using MiniMax Algorithm
