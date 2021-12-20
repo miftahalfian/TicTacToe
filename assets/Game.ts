@@ -218,15 +218,15 @@ export default class TicTacToe extends cc.Component {
             else return 0;
         }
 
-        if (this.level == Level.Easy && depth > 3) return 0;
-        else if (this.level == Level.Medium && depth > 5) return 0; 
+        if (this.level == Level.Easy && depth > 2) return 0;
+        else if (this.level == Level.Medium && depth > 4) return 0; 
 
         let bestScore = isMaximizing ? -Infinity : Infinity;
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
                 if (board[j][i] == "") {
-                    board[j][i] = this.ai;
-                    let score = this.minimax(board, depth + 1, false);
+                    board[j][i] = isMaximizing ? this.ai : this.human;
+                    let score = this.minimax(board, depth + 1, !isMaximizing);
                     board[j][i] = "";
                     bestScore = isMaximizing ? Math.max(score, bestScore) : Math.min(score, bestScore);
                 }
